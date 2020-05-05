@@ -6,26 +6,22 @@
  * @flow strict-local
  */
 
+import 'react-native-gesture-handler';
 import React from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, StatusBar} from 'react-native';
+import {StatusBar} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {Navbar} from './src/Navbar/Navbar';
-import {GalleryImage} from './src/GalleryImage/GalleryImage';
+import MyStack from './src/MyStack';
 
 const App: () => React$Node = () => {
   return (
-    <>
+    <NavigationContainer>
       <StatusBar barStyle="light-content" />
-      <SafeAreaView>
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <Navbar title="Devsteam.mobi" />
-          <GalleryImage />
-        </ScrollView>
-      </SafeAreaView>
-    </>
+      <Navbar title="Devsteam.mobi" />
+      <MyStack />
+    </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({});
-
 export default App;
-//TODO Применить Redux, React Navigation, Flexbox, ref. Сделать страницу фотографии
+//TODO Применить Redux, Flexbox. Сделать страницу фотографии

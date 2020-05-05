@@ -1,8 +1,17 @@
 import React, {useEffect, useState} from 'react';
 
-import {Text, View, Image, StyleSheet, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
-export const GalleryImage = () => {
+export const GalleryImage = ({navigation}) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -15,27 +24,38 @@ export const GalleryImage = () => {
       .catch(error => console.error(error))
       .finally(() => setLoading(false));
   }, []);
+
   return (
-    <View>
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        data.map(item => (
-          <View key={item.id} style={styles.boxImage}>
-            <Text>@{item.user?.username}</Text>
-            <Image style={styles.image} source={{uri: item.urls?.thumb}} />
-            <Text>{item.alt_description}</Text>
-          </View>
-        ))
-      )}
-    </View>
+    <SafeAreaView>
+      <ScrollView>
+        {isLoading ? (
+          <ActivityIndicator />
+        ) : (
+          data.map(item => (
+            <View key={item.id} style={styles.boxImage}>
+              <Text style={styles.userName}>@{item.user?.username}</Text>
+              <TouchableOpacity
+                // eslint-disable-next-line react-native/no-inline-styles
+                style={{width: 200}}
+                onPress={() =>
+                  navigation.navigate('ImagePage', {imageId: item.id})
+                }>
+                <Image style={styles.image} source={{uri: item.urls?.thumb}} />
+              </TouchableOpacity>
+              <Text>{item.alt_description}</Text>
+            </View>
+          ))
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   boxImage: {
-    borderColor: '#333',
-    borderWidth: 2,
+    borderColor: '#f5deb3',
+    borderWidth: 3,
+    borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 10,
     marginHorizontal: 10,
@@ -44,9 +64,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   image: {
-    width: 100,
-    height: 100,
-    marginHorizontal: 5,
-    marginVertical: 5,
+    width: 200,
+    height: 200,
+    marginVertical: 10,
+  },
+  userName: {
+    color: '#3949ab',
+    fontSize: 18,
   },
 });
