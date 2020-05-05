@@ -38,7 +38,10 @@ export const GalleryImage = ({navigation}) => {
                 // eslint-disable-next-line react-native/no-inline-styles
                 style={{width: 200}}
                 onPress={() =>
-                  navigation.navigate('ImagePage', {imageId: item.id})
+                  navigation.navigate('ImagePage', {
+                    imageId: item.id,
+                    data: item,
+                  })
                 }>
                 <Image style={styles.image} source={{uri: item.urls?.thumb}} />
               </TouchableOpacity>

@@ -1,14 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, Dimensions} from 'react-native';
 
 export const ImagePage = props => {
-  const {imageId} = props.route.params;
+  const {data} = props.route.params;
+  const win = Dimensions.get('window');
+  const ratio = win.width / data.width;
 
   return (
     <View>
-      <Text>Image</Text>
-      <Text>{imageId}</Text>
-      {/* <Image style={styles.image} source={{uri: imageId}} /> */}
+      <Image
+        style={{width: win.width, height: data.height * ratio}}
+        source={{uri: data.urls.full}}
+      />
     </View>
   );
 };

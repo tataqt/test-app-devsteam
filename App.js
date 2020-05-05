@@ -24,4 +24,4 @@ const App: () => React$Node = () => {
 };
 
 export default App;
-//TODO Применить Redux, Flexbox. Сделать страницу фотографии
+//TODO Применить Redux, Flexbox
